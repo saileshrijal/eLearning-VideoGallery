@@ -1,0 +1,78 @@
+@model List<eLearning.ViewModels.GradeVM>
+
+@{
+    ViewData["Title"] = "Grades";
+}
+
+<div class=" my-2">
+    <a href="/Admin/Grade/Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">List of Grades</h4>
+    </div>
+    <div class="card-body">
+        <div class="my-2">
+            <form >
+                <div class="row">
+                    <div class="col-3">
+                        <input type="search" value=@ViewBag.Search name="search" class="form-control" placeholder="Search Grade...">
+                    </div>
+                    <div class="col-5">
+                        <button class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <table class="table table-bordered table-striped table-hover">
+           <thead class="table-primary">
+             <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Crated Date
+                </th>
+            <th>
+                    Action
+                </th>
+            </tr>
+           </thead>
+           <tbody>
+            @{var sn = 0;}
+            @foreach (var item in Model!)
+            {
+                <tr>
+                    <td>
+                        <span class="fw-bolder">@(++sn)</span>
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                       @item.Description
+                    </td>
+                    <td>
+                        @item.CreatedAt
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="bi bi-view-list"></i></a>
+                              <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+           </tbody>
+        </table>
+    </div>
+</div>
+

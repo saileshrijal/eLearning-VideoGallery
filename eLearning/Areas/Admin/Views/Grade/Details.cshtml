@@ -1,0 +1,29 @@
+@model eLearning.ViewModels.GradeVM
+
+@{
+    ViewData["Title"] = "Grade Details";
+}
+
+<div class="my-2">
+    <button type="button" class="btn btn-info" onclick="history.back()"><i class="bi bi-arrow-left-circle"></i> Back to List</button>
+</div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly required>
+                <label for="Name">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" readonly rows="8"></textarea>
+                <label for="Description">Description</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" asp-for="CreatedAt" id="CreatedAd" placeholder="Created At" readonly>
+                <label for="Name">Create At</label>
+            </div>
+        </div>
+    </div>
