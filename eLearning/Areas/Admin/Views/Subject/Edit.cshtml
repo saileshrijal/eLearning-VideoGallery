@@ -1,23 +1,24 @@
-@model eLearning.ViewModels.GradeVM
+@model eLearning.ViewModels.SubjectVM
 
 @{
-    ViewData["Title"] = "Edit Grade";
+    ViewData["Title"] = "Edit Subject";
 }
 
 <div class="my-2">
-      <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
 </div>
 
 <form asp-action="Edit">
     <input type="hidden" asp-for="Id">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Edit Grade</h4>
+            <h4 class="card-title">Edit Subject</h4>
         </div>
         <div class="card-body">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" required>
                 <label for="Name">Name</label>
+                <span class="text-danger" asp-validation-for="Name"></span>
             </div>
             <div class="form-floating mb-3">
                 <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" rows="8"></textarea>

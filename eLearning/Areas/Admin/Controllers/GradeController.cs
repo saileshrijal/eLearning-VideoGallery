@@ -89,6 +89,7 @@ namespace eLearning.Area.Controllers
                     Description = vm.Description
                 };
                 await _gradeService.UpdateGrade(vm.Id, gradeDto);
+                _notifService.Success("Grade updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
@@ -124,6 +125,7 @@ namespace eLearning.Area.Controllers
         public async Task<IActionResult> Delete(GradeVM vm)
         {
             await _gradeService.DeleteGrade(vm.Id);
+            _notifService.Success("Grade deleted successfully");
             return RedirectToAction(nameof(Index));
         }
     }

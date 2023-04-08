@@ -16,10 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
     builder.Services.AddControllersWithViews();
-
-    builder.Services.AddScoped<IGradeService, GradeService>();
+    // Repositories
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddScoped<IGradeRepository, GradeRepository>();
+    builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+
+    // Services
+    builder.Services.AddScoped<IGradeService, GradeService>();
+    builder.Services.AddScoped<ISubjectService, SubjectService>();
+
 
     builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 

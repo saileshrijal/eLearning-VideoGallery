@@ -11,23 +11,17 @@ namespace eLearning.Repository
         public GradeRepository(ApplicationDbContext context) : base(context)
         {
         }
-
-        public async Task<List<Grade>> SearchByName(string search)
-        {
-            return await _context.Grades!.Where(x => x.Name!.Contains(search)).ToListAsync();
-        }
-
         public async Task<IPagedList<Grade>> GetAllGrades(string? search, int? page)
         {
             int pageSize = 4;
             int pageNumber = (page ?? 1);
             if (search == null)
             {
-                return await _context.Grades!.ToPagedListAsync(pageNumber, pageSize);
+                return await _context.Grades!.OrderByDescending(x => x.CreatedAt).ToPagedListAsync(pageNumber, pageSize);
             }
             else
             {
-                return await _context.Grades!.Where(x => x.Name!.Contains(search)).ToPagedListAsync(pageNumber, pageSize);
+                return await _context.Grades!.Where(x => x.Name!.Contains(search)).OrderByDescending(x => x.CreatedAt).ToPagedListAsync(pageNumber, pageSize);
             }
         }
     }

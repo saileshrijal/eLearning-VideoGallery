@@ -1,18 +1,18 @@
-@model eLearning.ViewModels.GradeVM
+@model eLearning.ViewModels.SubjectVM
 
 @{
-    ViewData["Title"] = "Delete Grade";
+    ViewData["Title"] = "Delete Subject";
 }
 
 <div class="my-2">
-     <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
 </div>
 
 <form asp-action="Delete" >
     <input type="hidden" asp-for="Id">
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Delete Grade</h4>
+            <h4 class="card-title">Delete Subject</h4>
         </div>
         <div class="card-body">
             <div class="form-floating mb-3">
