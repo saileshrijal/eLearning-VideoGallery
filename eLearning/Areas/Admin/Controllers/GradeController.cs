@@ -26,28 +26,16 @@ namespace eLearning.Area.Controllers
 
         public async Task<IActionResult> Index(string? search, int? page)
         {
-            var grades = new List<Grade>();
-            if (search == null)
-            {
-                grades = await _gradeRepository.GetAll();
-            }
-            else
-            {
-                ViewBag.Search = search;
-                grades = await _gradeRepository.SearchByName(search);
-            }
-
-            int pageSize = 4;
-            int pageNumber = (page ?? 1);
-
-            var vm = grades.Select(x => new GradeVM()
+            var grades = await _gradeRepository.GetAllGrades(search, page);
+            ViewBag.Search = search;
+            var vm = grades.Select(x => new GradeVM
             {
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 CreatedAt = x.CreatedAt
             });
-            return View(vm.ToPagedList(pageNumber, pageSize));
+            return View(vm);
         }
 
         public IActionResult Create()

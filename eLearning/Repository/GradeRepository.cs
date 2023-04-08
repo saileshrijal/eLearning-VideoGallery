@@ -16,5 +16,19 @@ namespace eLearning.Repository
         {
             return await _context.Grades!.Where(x => x.Name!.Contains(search)).ToListAsync();
         }
+
+        public async Task<IPagedList<Grade>> GetAllGrades(string? search, int? page)
+        {
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+            if (search == null)
+            {
+                return await _context.Grades!.ToPagedListAsync(pageNumber, pageSize);
+            }
+            else
+            {
+                return await _context.Grades!.Where(x => x.Name!.Contains(search)).ToPagedListAsync(pageNumber, pageSize);
+            }
+        }
     }
 }
