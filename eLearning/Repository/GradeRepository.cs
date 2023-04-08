@@ -2,6 +2,7 @@ using eLearning.Data;
 using eLearning.Models;
 using eLearning.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace eLearning.Repository
 {

@@ -1,4 +1,7 @@
-@model List<eLearning.ViewModels.GradeVM>
+@model IPagedList<eLearning.ViewModels.GradeVM>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
 
 @{
     ViewData["Title"] = "Grades";
@@ -73,6 +76,25 @@
             }
            </tbody>
         </table>
+
+          Page @(Model?.PageCount < Model?.PageNumber ? 0 : Model?.PageNumber) of @Model?.PageCount
+            @Html.PagedListPager(Model,page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+                @* make it look like bootstrap *@
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = false,
+                UlElementClasses = new[] { "pagination my-4" },
+                LiElementClasses = new[] { "page-item" },
+                ActiveLiElementClass = "active",
+                PageClasses = new[] { "page-link" },
+
+                @* and add in the bootstrap classes *@
+                ContainerDivClasses = new[] { "text-center" },
+                
+
+            })
     </div>
 </div>
 

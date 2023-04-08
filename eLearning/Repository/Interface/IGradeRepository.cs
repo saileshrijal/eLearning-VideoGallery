@@ -1,4 +1,5 @@
 using eLearning.Models;
+using X.PagedList;
 
 namespace eLearning.Repository.Interface
 {

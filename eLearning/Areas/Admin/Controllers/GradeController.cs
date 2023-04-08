@@ -5,6 +5,7 @@ using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace eLearning.Area.Controllers
 {
@@ -23,7 +24,7 @@ namespace eLearning.Area.Controllers
             _notifService = notifService;
         }
 
-        public async Task<IActionResult> Index(string? search)
+        public async Task<IActionResult> Index(string? search, int? page)
         {
             var grades = new List<Grade>();
             if (search == null)
@@ -35,14 +36,18 @@ namespace eLearning.Area.Controllers
                 ViewBag.Search = search;
                 grades = await _gradeRepository.SearchByName(search);
             }
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
             var vm = grades.Select(x => new GradeVM()
             {
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 CreatedAt = x.CreatedAt
-            }).ToList();
-            return View(vm);
+            });
+            return View(vm.ToPagedList(pageNumber, pageSize));
         }
 
         public IActionResult Create()
