@@ -18,7 +18,7 @@ namespace eLearning.Repository.Interface
         }
         public async Task<T> GetById(int id)
         {
-            return await _dbSet.FindAsync(id) ?? throw new Exception("Not found");
+            return await _dbSet.FindAsync(id);
         }
     }
 }

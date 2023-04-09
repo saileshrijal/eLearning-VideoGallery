@@ -20,6 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     builder.Services.AddScoped<IGradeRepository, GradeRepository>();
     builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+    builder.Services.AddScoped<ISubjectGradeRepository, SubjectGradeRepository>();
 
     // Services
     builder.Services.AddScoped<IGradeService, GradeService>();

@@ -13,7 +13,7 @@ namespace eLearning.Repository
         }
         public async Task<IPagedList<Subject>> GetAllSubjects(string? search, int? page)
         {
-            int pageSize = 4;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             if (search == null)
             {

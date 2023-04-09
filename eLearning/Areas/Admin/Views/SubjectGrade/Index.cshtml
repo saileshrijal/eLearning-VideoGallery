@@ -1,0 +1,104 @@
+@model IPagedList<eLearning.Models.Grade>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+@{
+    ViewBag.Title = "Subject Grade";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">List of Grades with Subjects</h4>
+    </div>
+    <div class="card-body">
+        <div class="my-2">
+            <form>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="input-group">
+                            <input type="search" value=@ViewBag.Search name="search" class="form-control" placeholder="Search Grade...">
+                            <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        @if (Model?.Count == 0)
+        {
+            <div class="alert alert-warning text-center">
+                <p>
+                    💀 There is no Grade in the application. Please create a Grade.
+                </p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-primary">
+                    <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Grade
+                    </th>
+                    <th>
+                        Subject
+                    </th>
+
+                        <th>
+                        Action
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    //check sn according to page number
+                    int sn = (Model?.PageNumber - 1) * Model?.PageSize ?? 0;
+                }
+                @foreach (var grade in Model!)
+                {
+                    <tr>
+                        <td>
+                           <span class="fw-bolder">@(++sn)</span>
+                        </td>
+                        <td>
+                            @grade.Name
+                        </td>
+                        <td>
+                            @foreach (var subject in grade.SubjectGrades!)
+                            {
+                                <span class="badge bg-primary">@subject.Subject!.Name</span>
+                            }
+                        </td>
+                        <td>
+                             <a asp-action="Assign" asp-route-id="@grade.Id" class="btn btn-primary btn-sm"><i class="bi bi-rocket-takeoff"></i> Assign Subjects</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+
+        
+          Page @(Model?.PageCount < Model?.PageNumber ? 0 : Model?.PageNumber) of @Model?.PageCount
+            @Html.PagedListPager(Model,page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+                @* make it look like bootstrap *@
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = false,
+                UlElementClasses = new[] { "pagination my-4" },
+                LiElementClasses = new[] { "page-item" },
+                ActiveLiElementClass = "active",
+                PageClasses = new[] { "page-link" },
+
+                @* and add in the bootstrap classes *@
+                ContainerDivClasses = new[] { "text-center" },
+            })
+
+    </div>
+</div>

@@ -16,6 +16,21 @@ namespace eLearning.Service
             _gradeRepository = gradeRepository;
         }
 
+        public async Task AsignSubjectsToGrade(int gradeId, List<int> subjectIds)
+        {
+            var grade = await _gradeRepository.GetGradeWithSubjects(gradeId);
+            if (grade == null)
+            {
+                throw new Exception("Grade not found");
+            }
+            grade.SubjectGrades = subjectIds.Select(x => new SubjectGrade
+            {
+                SubjectID = x,
+                GradeID = gradeId
+            }).ToList();
+            await _unitOfWork.CommitAsync();
+        }
+
         public async Task CreateGrade(GradeDto gradeDto)
         {
             var grade = new Grade

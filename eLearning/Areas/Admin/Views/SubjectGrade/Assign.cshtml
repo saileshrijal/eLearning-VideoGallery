@@ -1,0 +1,24 @@
+@model eLearning.ViewModels.AssignSubjectVM
+
+@{
+    ViewData["Title"] = "Asign Subjects";
+}
+
+<form method="post" asp-action="Assign">
+    <input type="hidden" asp-for="Grade.Id" />
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Assign Subjects to Grade: @Model.Grade!.Name</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="subjects">Subjects:</label>
+                <select multiple class="form-control select" id="subjects" asp-for="SubjectIds" asp-items="@Model.SelectSubjects">
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </div>
+    </div>
+</form>

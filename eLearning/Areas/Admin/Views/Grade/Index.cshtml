@@ -17,13 +17,13 @@
     </div>
     <div class="card-body">
         <div class="my-2">
-            <form >
+            <form>
                 <div class="row">
-                    <div class="col-3">
-                        <input type="search" value=@ViewBag.Search name="search" class="form-control" placeholder="Search Grade...">
-                    </div>
-                    <div class="col-5">
-                        <button class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="input-group">
+                            <input type="search" value=@ViewBag.Search name="search" class="form-control" placeholder="Search Grade...">
+                            <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -52,15 +52,15 @@
                     Description
                 </th>
                 <th>
-                    Crated Date
-                </th>
-            <th>
                     Action
                 </th>
             </tr>
            </thead>
            <tbody>
-            @{var sn = 0;}
+            @{
+                //check sn according to page number
+                int sn = (Model?.PageNumber - 1) * Model?.PageSize ?? 0;
+            }
             @foreach (var item in Model!)
             {
                 <tr>
@@ -72,9 +72,6 @@
                     </td>
                     <td>
                        @item.Description
-                    </td>
-                    <td>
-                        @item.CreatedAt
                     </td>
                     <td>
                         <div class="btn-group">
@@ -106,9 +103,6 @@
                 
 
             })
-    </div>
-</div>
-
 @section Scripts{
     @* include partial validation *@
     @await Html.PartialAsync("_ValidationScriptsPartial")

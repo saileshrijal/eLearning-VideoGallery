@@ -28,5 +28,11 @@ namespace eLearning.Repository
         {
             return await _context.SaveChangesAsync();
         }
+
+        public Task CreateRangeAsync<T>(List<T> entities) where T : class
+        {
+            _context.Set<T>().AddRange(entities);
+            return Task.CompletedTask;
+        }
     }
 }

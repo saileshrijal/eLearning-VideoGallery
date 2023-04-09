@@ -8,5 +8,6 @@ namespace eLearning.Service.Interface
         Task CreateGrade(GradeDto gradeDto);
         Task UpdateGrade(int id, GradeDto gradeDto);
         Task DeleteGrade(int id);
+        Task AsignSubjectsToGrade(int gradeId, List<int> subjectIds);
     }
 }
