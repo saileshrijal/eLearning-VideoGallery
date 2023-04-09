@@ -21,10 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IGradeRepository, GradeRepository>();
     builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
     builder.Services.AddScoped<ISubjectGradeRepository, SubjectGradeRepository>();
+    builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
 
     // Services
     builder.Services.AddScoped<IGradeService, GradeService>();
     builder.Services.AddScoped<ISubjectService, SubjectService>();
+    builder.Services.AddScoped<IChapterService, ChapterService>();
 
 
     builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });

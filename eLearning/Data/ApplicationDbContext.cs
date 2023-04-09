@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Subject>? Subjects { get; set; }
 
     public DbSet<SubjectGrade>? SubjectGrades { get; set; }
+    public DbSet<Chapter>? Chapters { get; set; }
 
 }
 

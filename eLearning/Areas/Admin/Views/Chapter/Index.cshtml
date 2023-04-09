@@ -1,0 +1,136 @@
+@model IPagedList<eLearning.ViewModels.ChapterVM>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+
+@{
+    ViewData["Title"] = "Chapters";
+}
+
+<div class=" my-2">
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">List of Chapters</h4>
+    </div>
+    <div class="card-body">
+        <div class="my-2">
+           <form>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="input-group">
+                            <input type="search" value=@ViewBag.Search name="search" class="form-control" placeholder="Search Chapter...">
+                            <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        @if(Model?.Count == 0)
+        {
+            <div class="alert alert-warning text-center">
+                <p>
+                    💀 There is no Chapter in the application. Please create a Grade.
+                </p>
+            </div>
+        }else{
+
+
+        <table class="table table-bordered table-striped table-hover">
+           <thead class="table-primary">
+             <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Unit
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Grade
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+           </thead>
+           <tbody>
+            @{
+                //check sn according to page number
+                int sn = (Model?.PageNumber - 1) * Model?.PageSize ?? 0;
+            }
+            @foreach (var item in Model!)
+            {
+                <tr>
+                    <td>
+                        <span class="fw-bolder">@(++sn)</span>
+                    </td>
+                    <td>
+                        @item.Code
+                    </td>
+                     <td>
+                        @item.Name
+                    </td>
+                     <td>
+                        @item.Unit
+                    </td>
+                    <td>
+                       @item.Description
+                    </td>
+                     <td>
+                       @item.Subject!.Name
+                    </td>
+                     <td>
+                       @item.Grade!.Name
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                             <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info"><i class="bi bi-view-list"></i></a>
+                              <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+           </tbody>
+        </table>
+        }
+
+          Page @(Model?.PageCount < Model?.PageNumber ? 0 : Model?.PageNumber) of @Model?.PageCount
+            @Html.PagedListPager(Model,page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+            new PagedListRenderOptions()
+            {
+                @* make it look like bootstrap *@
+                Display = PagedListDisplayMode.IfNeeded,
+                DisplayPageCountAndCurrentLocation = false,
+                UlElementClasses = new[] { "pagination my-4" },
+                LiElementClasses = new[] { "page-item" },
+                ActiveLiElementClass = "active",
+                PageClasses = new[] { "page-link" },
+
+                @* and add in the bootstrap classes *@
+                ContainerDivClasses = new[] { "text-center" },
+            })
+
+
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"/>
+}
