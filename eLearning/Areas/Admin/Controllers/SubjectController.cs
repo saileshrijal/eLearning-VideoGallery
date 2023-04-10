@@ -33,6 +33,7 @@ namespace eLearning.Area.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
+                Code = x.Code,
                 CreatedAt = x.CreatedAt
             });
             return View(vm);
@@ -52,6 +53,7 @@ namespace eLearning.Area.Controllers
                 var subjectDto = new SubjectDto
                 {
                     Name = vm.Name,
+                    Code = vm.Code,
                     Description = vm.Description,
                 };
                 await _subjectService.CreateSubject(subjectDto);
@@ -72,6 +74,7 @@ namespace eLearning.Area.Controllers
             {
                 Id = subject.Id,
                 Name = subject.Name,
+                Code = subject.Code,
                 Description = subject.Description,
             };
             return View(vm);
@@ -85,6 +88,7 @@ namespace eLearning.Area.Controllers
                 var subjectDto = new SubjectDto
                 {
                     Name = vm.Name,
+                    Code = vm.Code,
                     Description = vm.Description,
                 };
                 await _subjectService.UpdateSubject(vm.Id, subjectDto);
@@ -101,6 +105,7 @@ namespace eLearning.Area.Controllers
             {
                 Id = subject.Id,
                 Name = subject.Name,
+                Code = subject.Code,
                 Description = subject.Description,
             };
             return View(vm);
@@ -113,6 +118,7 @@ namespace eLearning.Area.Controllers
             {
                 Id = subject.Id,
                 Name = subject.Name,
+                Code = subject.Code,
                 Description = subject.Description,
             };
             return View(vm);

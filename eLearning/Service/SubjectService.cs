@@ -21,6 +21,7 @@ namespace eLearning.Service
             var subject = new Subject
             {
                 Name = subjectDto.Name,
+                Code = subjectDto.Code,
                 Description = subjectDto.Description,
             };
             await _unitOfWork.CreateAsync(subject);
@@ -39,6 +40,7 @@ namespace eLearning.Service
         {
             var subject = await _subjectRepository.GetById(id);
             subject.Name = subjectDto.Name;
+            subject.Code = subjectDto.Code;
             subject.Description = subjectDto.Description;
             await _unitOfWork.CommitAsync();
         }
