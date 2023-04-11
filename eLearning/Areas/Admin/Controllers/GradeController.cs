@@ -4,12 +4,14 @@ using eLearning.Models;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class GradeController : Controller
     {
         private readonly IGradeService _gradeService;

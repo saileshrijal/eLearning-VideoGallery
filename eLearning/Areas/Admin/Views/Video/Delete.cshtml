@@ -1,0 +1,52 @@
+@model eLearning.ViewModels.VideoVM
+
+@{
+    ViewData["Title"] = "Delete Subject";
+}
+
+<div class="my-2">
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+</div>
+
+<form asp-action="Delete" >
+    <input type="hidden" asp-for="Id">
+    <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Create Chapter</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <video src="~/uploads/videos/@Model.VideoUrl" controls width="100%"></video>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="Title" asp-for="Title" placeholder="Title" readonly>
+                            <label for="Title">Title</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea readonly class="form-control" id="Description" asp-for="Description" placeholder="Description" rows="4"></textarea>
+                            <label for="Description">Description</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Grade">Grade</label>
+                            <input type="text" class="form-control" id="Grade" asp-for="Grade!.Name" readonly>
+                        </div> 
+                        <div class="mb-3">
+                            <label for="Subject">Subject</label>
+                            <input type="text" class="form-control" id="Subject" asp-for="Subject!.Name" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Chapter">Chapter</label>
+                            <input type="text" class="form-control" id="Chapter" asp-for="Chapter!.Name" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Confirm Delete</button>
+            </div>
+        </div>
+</form>

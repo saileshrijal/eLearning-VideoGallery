@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using eLearning.Models;
+using eLearning.Repository.Interface;
+using eLearning.ViewModels;
 
 namespace eLearning.Controllers;
 
@@ -8,14 +10,25 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    private readonly ISubjectRepository _subjectRepository;
+    public HomeController(ILogger<HomeController> logger, ISubjectRepository subjectRepository)
     {
         _logger = logger;
+        _subjectRepository = subjectRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var subjects = await _subjectRepository.GetAll();
+        var vm = subjects.Select(x => new SubjectVM()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Code = x.Code,
+            Description = x.Description,
+            CreatedAt = x.CreatedAt,
+        }).ToList();
+        return View(vm);
     }
 
     public IActionResult Privacy()

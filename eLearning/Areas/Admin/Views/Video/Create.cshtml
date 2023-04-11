@@ -1,0 +1,126 @@
+@model eLearning.ViewModels.VideoVM
+
+@{
+    ViewData["Title"] = "Create Subject";
+}
+
+<div class="my-2">
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+</div>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Create Chapter</h4>
+        </div>
+        <div class="card-body">
+             <div class="mb-3">
+                <label for="GradeId">Select Grade</label>
+                <select class="form-select select" id="GradeId" asp-for="GradeId" asp-items="@Model.Grades" required>
+                    <option value="">Select Grade</option>
+                </select>
+                <span class="text-danger" asp-validation-for="GradeId"></span>
+            </div> 
+             <div class="mb-3">
+                <label for="SubjectId">Subject</label>
+                <select class="form-select select" id="SubjectId" asp-for="SubjectId" asp-items="@Model.Subjects" required>
+                    <option value="">Select Subject</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SubjectId"></span>
+            </div>
+               <div class="mb-3">
+                <label for="ChapterId">Chapter</label>
+                <select class="form-select select" id="ChapterId" asp-for="ChapterId" asp-items="@Model.Chapters" required>
+                    <option value="">Select Subject</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SubjectId"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Code" asp-for="Title" placeholder="Title" >
+                <label for="Code">Title</label>
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" rows="4"></textarea>
+                <label for="Description">Description</label>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+            <div class="mb-3">
+                @* input form that accept video format only *@
+                <label for="Video">Upload Video</label>
+                <input type="file" class="form-control" id="Video" asp-for="Video" placeholder="Video" accept="video/mp4,video/x-m4v,video/*" >
+
+                <span class="text-danger" asp-validation-for="VideoUrl"></span>
+            </div>
+            <div class="mb-3">
+                @* input form that accespt png and jpg with minimu size*@
+                <label for="Thumbnail">Upload Thumbnail</label>
+                <input type="file" class="form-control" id="ThumbnailUrl" asp-for="Thumbnail" placeholder="Thumbnail" accept="image/png, image/jpeg" >
+
+                <span class="text-danger" asp-validation-for="ThumbnailUrl"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+<script>
+    //get subjects by gradeId from api call in ajax
+    $(document).ready(function () {
+        $("#GradeId").change(function () {
+            var gradeId = $(this).val();
+            $.ajax({
+                @* api/subjects/GetSubjectsByGradeId *@
+                
+                url: "/admin/Chapter/GetSubjectsByGradeId/" + gradeId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = '';
+                    html += '<option value="">Select Subject</option>';
+                    $.each(data, function (key, item) {
+                        html += '<option value="' + item.id + '">' + item.name + '</option>';
+                    });
+                    $("#SubjectId").html(html);
+
+                }
+            });
+        });
+
+        @* api: http://localhost:5039/Admin/Video/GetSubjectsByGradeId?gradeId=1&subjectId=11 *@
+                @* Admin/Video/GetSubjectsByGradeId?gradeId=1&subjectId=11 *@
+
+        $("#SubjectId").change(function () {
+            var gradeId = $("#GradeId").val();
+            var subjectId = $(this).val();
+            $.ajax({
+                @* api/subjects/GetSubjectsByGradeId *@
+                url: "/admin/Video/GetSubjectsByGradeId?gradeId=" + gradeId + "&subjectId=" + subjectId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = '';
+                    html += '<option value="">Select Chapter</option>';
+                    $.each(data, function (key, item) {
+                        html += '<option value="' + item.id + '">' + item.name + '</option>';
+                    });
+                    $("#ChapterId").html(html);
+
+                }
+            });
+        });
+
+
+
+    });
+
+  
+</script>
+
+}

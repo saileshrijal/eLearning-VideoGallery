@@ -38,7 +38,6 @@ namespace eLearning.Area.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                Code = x.Code,
                 Unit = x.Unit,
                 Description = x.Description,
                 SubjectId = x.SubjectId,
@@ -75,7 +74,6 @@ namespace eLearning.Area.Controllers
                 var chapterDto = new ChapterDto
                 {
                     Name = vm.Name,
-                    Code = vm.Code,
                     Unit = vm.Unit,
                     Description = vm.Description,
                     SubjectId = vm.SubjectId,
@@ -101,7 +99,6 @@ namespace eLearning.Area.Controllers
             {
                 Id = chapter.Id,
                 Name = chapter.Name,
-                Code = chapter.Code,
                 Unit = chapter.Unit,
                 Description = chapter.Description,
                 SubjectId = chapter.SubjectId,
@@ -124,7 +121,6 @@ namespace eLearning.Area.Controllers
                 var chapterDto = new ChapterDto
                 {
                     Name = vm.Name,
-                    Code = vm.Code,
                     Unit = vm.Unit,
                     Description = vm.Description,
                     SubjectId = vm.SubjectId,
@@ -144,7 +140,6 @@ namespace eLearning.Area.Controllers
             {
                 Id = chapter.Id,
                 Name = chapter.Name,
-                Code = chapter.Code,
                 Unit = chapter.Unit,
                 Description = chapter.Description,
                 SubjectId = chapter.SubjectId,
@@ -163,7 +158,6 @@ namespace eLearning.Area.Controllers
             {
                 Id = chapter.Id,
                 Name = chapter.Name,
-                Code = chapter.Code,
                 Unit = chapter.Unit,
                 Description = chapter.Description,
                 SubjectId = chapter.SubjectId,

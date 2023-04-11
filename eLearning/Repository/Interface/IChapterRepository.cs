@@ -7,5 +7,6 @@ namespace eLearning.Repository.Interface
     {
         Task<IPagedList<Chapter>> GetAllChapters(string? search, int? page);
         Task<Chapter> GetChapterById(int? id);
+        Task<List<Chapter>> GetChaptersBySubjectIdAndGradeId(int gradeId, int subjectId);
     }
 }

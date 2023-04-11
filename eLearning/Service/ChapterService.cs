@@ -20,7 +20,6 @@ namespace eLearning.Service
             var chapter = new Chapter
             {
                 Name = chapterDto.Name,
-                Code = chapterDto.Code,
                 Unit = chapterDto.Unit,
                 Description = chapterDto.Description,
                 SubjectId = chapterDto.SubjectId,
@@ -42,7 +41,6 @@ namespace eLearning.Service
             var chapter = await _chapterRepository.GetById(id);
             chapter.Name = chapterDto.Name;
             chapter.Description = chapterDto.Description;
-            chapter.Code = chapterDto.Code;
             chapter.Unit = chapterDto.Unit;
             chapter.SubjectId = chapterDto.SubjectId;
             chapter.GradeId = chapterDto.GradeId;

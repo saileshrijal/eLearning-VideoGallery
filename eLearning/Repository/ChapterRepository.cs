@@ -29,5 +29,11 @@ namespace eLearning.Repository
         {
             return _context.Chapters!.Include(x => x.Subject).Include(x => x.Grade).FirstOrDefaultAsync(x => x.Id == id)!;
         }
+
+        //get chapters by subject id
+        public Task<List<Chapter>> GetChaptersBySubjectIdAndGradeId(int gradeId, int subjectId)
+        {
+            return _context.Chapters!.Where(x => x.SubjectId == subjectId && x.GradeId == gradeId).ToListAsync()!;
+        }
     }
 }

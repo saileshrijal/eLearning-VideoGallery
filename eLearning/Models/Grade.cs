@@ -11,4 +11,5 @@ public class Grade
     public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     public List<SubjectGrade>? SubjectGrades { get; set; }
+
 }

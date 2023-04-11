@@ -1,0 +1,92 @@
+@model eLearning.ViewModels.ChapterVM
+
+@{
+    ViewData["Title"] = "Create Subject";
+}
+
+<div class="my-2">
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+</div>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Create Chapter</h4>
+        </div>
+        <div class="card-body">
+             <div class="mb-3">
+                <label for="GradeId">Select Grade</label>
+                <select class="form-select select" id="GradeId" asp-for="GradeId" asp-items="@Model.Grades" required>
+                    <option value="">Select Grade</option>
+                </select>
+                <span class="text-danger" asp-validation-for="GradeId"></span>
+            </div> 
+             <div class="mb-3">
+                <label for="SubjectId">Subject</label>
+                <select class="form-select select" id="SubjectId" asp-for="SubjectId" asp-items="@Model.Subjects" required>
+                    <option value="">Select Subject</option>
+                </select>
+                <span class="text-danger" asp-validation-for="SubjectId"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Chapter Name" >
+                <label for="Name">Chapter Name</label>
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Unit" asp-for="Unit" placeholder="Chapter Unit" >
+                <label for="Name">Chapter Unit</label>
+                <span class="text-danger" asp-validation-for="Unit"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" rows="8"></textarea>
+                <label for="Description">Description</label>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+<script>
+    $(document).ready(function () {
+            $("#GradeId").change(function () {
+            getSubjectsByGradeId();
+        });
+    });
+
+    function getSubjectsByGradeId(){
+        var gradeId = $("#GradeId").val();
+            $.ajax({
+                @* api/subjects/GetSubjectsByGradeId *@
+                
+                url: "/admin/Chapter/GetSubjectsByGradeId/" + gradeId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = '';
+                    html += '<option value="">Select Subject</option>';
+                    $.each(data, function (key, item) {
+                        //add selected attribute to selected item
+                        if (item.id == @Model.SubjectId) {
+                            html += '<option value="' + item.id + '" selected>' + item.name + '</option>';
+                        }
+                        else{
+                            html += '<option value="' + item.id + '">' + item.name + '</option>';
+                        }   
+                    });
+                    $("#SubjectId").html(html);
+
+                }
+            });
+    }
+
+    getSubjectsByGradeId();
+</script>
+
+}

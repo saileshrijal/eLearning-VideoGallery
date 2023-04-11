@@ -9,5 +9,6 @@ namespace eLearning.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public List<SubjectGrade>? SubjectGrades { get; set; }
+        public List<Chapter>? Chapters { get; set; }
     }
 }
