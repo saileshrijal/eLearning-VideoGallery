@@ -1,0 +1,43 @@
+@model eLearning.ViewModels.ChapterVM
+
+@{
+    ViewData["Title"] = "Delete Subject";
+}
+
+<div class="my-2">
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+</div>
+
+<form asp-action="Delete" >
+    <input type="hidden" asp-for="Id">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Delete Subject</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly required>
+                <label for="Name">Name</label>
+            </div>
+             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Name" asp-for="Unit" placeholder="Unit" readonly required>
+                <label for="Unit">Unit</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" readonly rows="8"></textarea>
+                <label for="Description">Description</label>
+            </div>
+               <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Grade" asp-for="Grade.Name" placeholder="Grade" readonly>
+                <label for="Grade">Grade</label>
+            </div>
+             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="Subject" asp-for="Subject.Name" placeholder="Name" readonly>
+                <label for="Subject">Subject</label>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        </div>
+    </div>
+</form>

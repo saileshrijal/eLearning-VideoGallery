@@ -23,10 +23,10 @@ namespace eLearning.Seeder.Interface
             var adminUser = await _userManager.GetUsersInRoleAsync(UserRole.Admin);
             if (!adminUser.Any())
             {
-                var role = new IdentityRole(UserRole.Admin);
-                await _roleManager.CreateAsync(role);
+                await _roleManager.CreateAsync(new IdentityRole(UserRole.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(UserRole.Student));
 
-                var userDto = new UserDto()
+				var userDto = new UserDto()
                 {
                     UserName = "admin",
                     Email = "admin@gmail.com",

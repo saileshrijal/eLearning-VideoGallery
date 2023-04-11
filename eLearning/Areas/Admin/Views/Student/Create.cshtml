@@ -1,0 +1,89 @@
+@model eLearning.ViewModels.ApplicationUserVM
+
+@{
+    ViewData["Title"] = "Create Student";
+}
+
+<div class="my-2">
+    <a asp-action="Index" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Back to List</a>
+</div>
+
+<form asp-action="Create">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Create Student</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="FirstName" asp-for="FirstName" placeholder="First Name" >
+                <label for="Name">First Name</label>
+                <span class="text-danger" asp-validation-for="FirstName"></span>
+            </div>
+             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="LastName" asp-for="LastName" placeholder="Last Name" >
+                <label for="LastName">Last Name</label>
+                <span class="text-danger" asp-validation-for="LastName"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="UserName" asp-for="UserName" placeholder="UserName" >
+                <label for="UserName">Username</label>
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+             <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="Email" asp-for="Email" placeholder="Email" >
+                <label for="Email">Email</label>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+             <div class="mb-3">
+                <label for="GradeId">Select Grade</label>
+                <select class="form-select select" id="GradeId" asp-for="GradeId" asp-items="@Model.Grades" required>
+                    <option value="">Select Grade</option>
+                </select>
+                <span class="text-danger" asp-validation-for="GradeId"></span>
+            </div> 
+          
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Address" asp-for="Address" placeholder="Address" rows="8"></textarea>
+                <label for="Address">Address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="Password" asp-for="Password" placeholder="Password" >
+                <label for="Password">Password</label>
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+<script>
+    //get subjects by gradeId from api call in ajax
+    $(document).ready(function () {
+        $("#GradeId").change(function () {
+            var gradeId = $(this).val();
+            $.ajax({
+                @* api/subjects/GetSubjectsByGradeId *@
+                
+                url: "/admin/Chapter/GetSubjectsByGradeId/" + gradeId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var html = '';
+                    html += '<option value="">Select Subject</option>';
+                    $.each(data, function (key, item) {
+                        html += '<option value="' + item.id + '">' + item.name + '</option>';
+                    });
+                    $("#SubjectId").html(html);
+
+                }
+            });
+        });
+    });
+</script>
+
+}
