@@ -48,6 +48,7 @@ internal class Program
             builder.Services.AddScoped<IFileHelper, FileHelper>();
             builder.Services.AddScoped<IUserSeeder, UserSeeder>();
             builder.Services.AddScoped<IAuthManager, AuthManager>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
 
             builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });

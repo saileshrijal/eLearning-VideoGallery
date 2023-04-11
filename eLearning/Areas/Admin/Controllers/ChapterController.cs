@@ -3,6 +3,7 @@ using eLearning.Dtos;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
@@ -10,6 +11,7 @@ using X.PagedList;
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ChapterController : Controller
     {
         private readonly ISubjectRepository _subjectRepository;

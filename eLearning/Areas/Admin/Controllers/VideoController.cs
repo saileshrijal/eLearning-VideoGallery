@@ -4,13 +4,16 @@ using eLearning.Helper.Interface;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 using X.PagedList;
 
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class VideoController : Controller
     {
         private readonly ISubjectRepository _subjectRepository;

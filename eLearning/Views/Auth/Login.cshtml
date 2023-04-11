@@ -1,14 +1,16 @@
+@using eLearning.Constant
 @model eLearning.ViewModels.LoginVM
 
 @{
-    ViewBag.Title = "Login";
-    Layout = null;
+	ViewBag.Title = "Login";
+	Layout = null;
+	var returnUrl = ViewBag.ReturnUrl;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>eLearning</title>
+	<title>@AppConstants.AppName</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -38,6 +40,7 @@
 				</div>
  
 				<form class="login100-form validate-form" method="post"  action="Login">
+					<input type="hidden" name="returnUrl" value="@returnUrl"/>
 					<span class="login100-form-title">
 						Login
 					</span>

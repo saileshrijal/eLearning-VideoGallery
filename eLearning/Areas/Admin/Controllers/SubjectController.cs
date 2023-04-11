@@ -4,12 +4,15 @@ using eLearning.Models;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using X.PagedList;
 
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SubjectController : Controller
     {
         private readonly ISubjectRepository _subjectRepository;

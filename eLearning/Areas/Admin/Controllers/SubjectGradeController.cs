@@ -3,12 +3,15 @@ using eLearning.Models;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class SubjectGradeController : Controller
     {
 

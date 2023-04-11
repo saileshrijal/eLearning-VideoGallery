@@ -20,13 +20,18 @@ public class AuthController : Controller
         _notyfService = notyfService;
     }
 
-    public IActionResult Login()
+    public IActionResult Login(string? returnUrl)
     {
+        if (User.Identity!.IsAuthenticated)
+        {
+            return Redirect("/");
+        }
+        ViewBag.ReturnUrl = returnUrl;
         return View(new LoginVM());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginVM vm)
+    public async Task<IActionResult> Login(LoginVM vm, string? returnUrl)
     {
         if (!ModelState.IsValid) { return View(vm); }
 
@@ -36,6 +41,10 @@ public class AuthController : Controller
             if (result.Success)
             {
                 _notyfService.Success($"Welcome {vm.Username}!");
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
                 return Redirect("/");
             }
             ModelState.AddModelError(nameof(vm.Username), string.Join(", ", result.Errors));
@@ -53,6 +62,6 @@ public class AuthController : Controller
     {
         await _authManager.Logout();
         _notyfService.Success("You have been logged out!");
-        return RedirectToAction("/");
+        return Redirect("/");
     }
 }

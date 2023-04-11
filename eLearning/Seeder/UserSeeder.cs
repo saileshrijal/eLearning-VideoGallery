@@ -1,6 +1,7 @@
-using System.Transactions;
 using eLearning.Constant;
+using eLearning.Dtos;
 using eLearning.Models;
+using eLearning.Service.Interface;
 using Microsoft.AspNetCore.Identity;
 
 namespace eLearning.Seeder.Interface
@@ -9,29 +10,32 @@ namespace eLearning.Seeder.Interface
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserService _userService;
 
-        public UserSeeder(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserSeeder(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUserService userService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _userService = userService;
         }
         public async Task SeedAdminUser()
         {
-            var user = await _userManager.GetUsersInRoleAsync(UserRole.Admin);
-            if (!user.Any())
-            { //transaction scope
+            var adminUser = await _userManager.GetUsersInRoleAsync(UserRole.Admin);
+            if (!adminUser.Any())
+            {
                 var role = new IdentityRole(UserRole.Admin);
                 await _roleManager.CreateAsync(role);
 
-                var applicationUser = new ApplicationUser()
+                var userDto = new UserDto()
                 {
                     UserName = "admin",
                     Email = "admin@gmail.com",
                     FirstName = "Super",
-                    LastName = "Admin"
+                    LastName = "Admin",
+                    UserRole = UserRole.Admin,
+                    Password = "Admin@0011"
                 };
-                await _userManager.CreateAsync(applicationUser, "Admin@0011");
-                await _userManager.AddToRoleAsync(applicationUser, UserRole.Admin);
+                await _userService.Create(userDto);
             }
         }
     }

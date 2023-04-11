@@ -383,31 +383,24 @@ namespace eLearning.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GradeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
-            modelBuilder.Entity("eLearning.Models.Student", b =>
-                {
-                    b.HasBaseType("eLearning.Models.ApplicationUser");
-
-                    b.Property<string>("GradeId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("GradeId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("StudentCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("GradeId1");
+                    b.HasIndex("GradeId");
 
-                    b.HasDiscriminator().HasValue("Student");
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -520,11 +513,11 @@ namespace eLearning.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("eLearning.Models.Student", b =>
+            modelBuilder.Entity("eLearning.Models.ApplicationUser", b =>
                 {
                     b.HasOne("eLearning.Models.Grade", "Grade")
                         .WithMany()
-                        .HasForeignKey("GradeId1");
+                        .HasForeignKey("GradeId");
 
                     b.Navigation("Grade");
                 });

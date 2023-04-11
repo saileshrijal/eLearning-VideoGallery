@@ -16,6 +16,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Chapter>? Chapters { get; set; }
     public DbSet<Video>? Videos { get; set; }
     public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
-    public DbSet<Student>? Students { get; set; }
 }
 

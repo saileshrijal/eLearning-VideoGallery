@@ -12,8 +12,8 @@ using eLearning.Data;
 namespace eLearning.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230411044136_Identity added")]
-    partial class Identityadded
+    [Migration("20230411110022_user model modified")]
+    partial class usermodelmodified
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,6 +89,10 @@ namespace eLearning.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -140,6 +144,10 @@ namespace eLearning.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -371,6 +379,33 @@ namespace eLearning.Migrations
                     b.ToTable("Videos");
                 });
 
+            modelBuilder.Entity("eLearning.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GradeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("GradeId");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -479,6 +514,15 @@ namespace eLearning.Migrations
                     b.Navigation("Grade");
 
                     b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("eLearning.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("eLearning.Models.Grade", "Grade")
+                        .WithMany()
+                        .HasForeignKey("GradeId");
+
+                    b.Navigation("Grade");
                 });
 
             modelBuilder.Entity("eLearning.Models.Chapter", b =>
