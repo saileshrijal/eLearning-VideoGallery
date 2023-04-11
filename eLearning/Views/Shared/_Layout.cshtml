@@ -41,8 +41,9 @@
                             <a class="nav-link" asp-area="Admin" asp-controller="Video" asp-action="Index">Video</a>
                         </li>
                     </ul>
+
                     <ul class="navbar-nav">
-                        <form method="post" asp-controller="Auth" asp-action="Logout">
+                        <form asp-controller="Auth" asp-action="Logout" method="post">
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
                     </ul>

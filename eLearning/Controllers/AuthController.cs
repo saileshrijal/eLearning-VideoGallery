@@ -58,6 +58,7 @@ public class AuthController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _authManager.Logout();
