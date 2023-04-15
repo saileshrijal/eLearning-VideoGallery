@@ -12,10 +12,10 @@
             @foreach (var video in Model!)
             {
                 <div class="col-md-6">
-                    <a asp-area="Student" asp-controller="Video" asp-action="Details" asp-route-id="@video.Id">
+                    <a asp-area="Student" asp-controller="Video" asp-action="Details" asp-route-id="@video.Id" class="text-decoration-none">
                         <div class="card">
                             <div class="card-body">
-                                <img src="~/uploads/Thumbnails/@video.ThumbnailUrl" class="card-img" />
+                                <img src="~/uploads/Thumbnails/@video.ThumbnailUrl" class="card-img" style="height:400px; object-fit:cover"/>
                             </div>
                             <div class="card-footer">
                                 <h4 class="card-title">@video.Title</h4>

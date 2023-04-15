@@ -63,8 +63,8 @@
         var gradeId = $("#GradeId").val();
             $.ajax({
                 @* api/subjects/GetSubjectsByGradeId *@
-                
-                url: "/admin/Chapter/GetSubjectsByGradeId/" + gradeId,
+
+                url: "/admin/Chapter/GetChaptersBySubjectIdAndGradeId/" + gradeId,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {

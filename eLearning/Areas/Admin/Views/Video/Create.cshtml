@@ -76,7 +76,7 @@
             $.ajax({
                 @* api/subjects/GetSubjectsByGradeId *@
                 
-                url: "/admin/Chapter/GetSubjectsByGradeId/" + gradeId,
+                url: "/admin/chapter/GetSubjectsByGradeId/" + gradeId,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -100,7 +100,7 @@
             var subjectId = $(this).val();
             $.ajax({
                 @* api/subjects/GetSubjectsByGradeId *@
-                url: "/admin/Video/GetSubjectsByGradeId?gradeId=" + gradeId + "&subjectId=" + subjectId,
+                    url: "/admin/Video/GetChaptersBySubjectIdAndGradeId?gradeId=" + gradeId + "&subjectId=" + subjectId,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {

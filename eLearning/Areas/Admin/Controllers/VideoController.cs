@@ -216,10 +216,14 @@ namespace eLearning.Area.Controllers
         #region API CALLS
         [HttpGet]
 
-        public async Task<IActionResult> GetSubjectsByGradeId(int gradeId, int subjectId)
+        public async Task<IActionResult> GetChaptersBySubjectIdAndGradeId(int gradeId, int subjectId)
         {
-            var subjects = await _chapterRepository.GetChaptersBySubjectIdAndGradeId(gradeId, subjectId);
-            return Json(subjects);
+            var chapters = await _chapterRepository.GetChaptersBySubjectIdAndGradeId(gradeId, subjectId);
+            return Json(chapters.Select(x=> new
+            {
+                id = x.Id,
+                name = x.Name,
+            }));
         }
         #endregion
     }

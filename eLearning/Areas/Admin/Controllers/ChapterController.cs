@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
+using eLearning.Constant;
 using eLearning.Dtos;
 using eLearning.Repository.Interface;
 using eLearning.Service.Interface;
@@ -11,7 +12,7 @@ using X.PagedList;
 namespace eLearning.Area.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = UserRole.Admin)]
     public class ChapterController : Controller
     {
         private readonly ISubjectRepository _subjectRepository;
@@ -184,7 +185,11 @@ namespace eLearning.Area.Controllers
         public async Task<IActionResult> GetSubjectsByGradeId(int id)
         {
             var subjects = await _subjectGradeRepository.GetSubjectsByGradeId(id);
-            return Json(subjects);
+            return Json(subjects.Select(x=> new
+            {
+                id = x.Id,
+                name = x.Name
+            }));
         }
         #endregion
     }
