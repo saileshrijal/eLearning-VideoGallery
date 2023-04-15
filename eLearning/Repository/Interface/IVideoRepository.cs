@@ -7,5 +7,6 @@ namespace eLearning.Repository.Interface
     {
         Task<IPagedList<Video>> GetAllVideos(string? search, int? page);
         Task<Video> GetVideoById(int? id);
+        Task<List<Video>> GetVideosByGradeIdSubjectIdChapterId(int gradeId, int subjectId, int chapterId);
     }
 }

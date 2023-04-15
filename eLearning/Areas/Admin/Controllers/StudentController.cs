@@ -20,18 +20,20 @@ namespace eLearning.Areas.Admin.Controllers
         private readonly INotyfService _notfyService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IGradeRepository _gradeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public StudentController(IUserService userService, INotyfService notfyService, UserManager<ApplicationUser> userManager, IGradeRepository gradeRepository)
+        public StudentController(IUserService userService, INotyfService notfyService, UserManager<ApplicationUser> userManager, IGradeRepository gradeRepository, IUserRepository userRepository)
         {
             _userService = userService;
             _notfyService = notfyService;
             _userManager = userManager;
             _gradeRepository = gradeRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var students = await _userManager.GetUsersInRoleAsync(UserRole.Student);
+            var students = await _userRepository.GetStudentsWithGrade();
             var vm = students.Select(x => new ApplicationUserVM()
             {
                 Id = x.Id,
@@ -68,6 +70,7 @@ namespace eLearning.Areas.Admin.Controllers
             if (!ModelState.IsValid) { return View(vm); }
             try
             {
+
                 var userDto = new UserDto()
                 {
                     UserName = vm.UserName,
@@ -87,6 +90,75 @@ namespace eLearning.Areas.Admin.Controllers
                 _notfyService.Error(ex.Message);
                 return View(vm);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var student = await _userRepository.GetStudentWithGradeById(id);
+            var grades = await _gradeRepository.GetAll();
+            var vm = new ApplicationUserVM()
+            {
+                Grades = grades.Select(x => new SelectListItem()
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }).ToList(),
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Address = student.Address,
+                Id = student.Id,
+                Email = student.Email,
+                UserName = student.UserName,
+                CreatedAt = student.CreatedAt,
+                GradeId = student.GradeId,
+            };
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ApplicationUserVM vm)
+        {
+            if (!ModelState.IsValid) { return View(vm); }
+            try
+            {
+                var userDto = new UserDto()
+                {
+                    FirstName = vm.FirstName,
+                    LastName = vm.LastName,
+                    Address = vm.Address,
+                    GradeId = vm.GradeId,
+                    UserRole = UserRole.Student,
+                };
+                await _userService.Edit(vm.Id!, userDto);
+                _notfyService.Success("Student updated successfully");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _notfyService.Error(ex.Message);
+                return View(vm);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            var student = await _userRepository.GetStudentWithGradeById(id);
+            var grades = await _gradeRepository.GetAll();
+            var vm = new ApplicationUserVM()
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Address = student.Address,
+                Id = student.Id,
+                Email = student.Email,
+                UserName = student.UserName,
+                CreatedAt = student.CreatedAt,
+                GradeId = student.GradeId,
+                Grade = student.Grade
+            };
+            return View(vm);
         }
     }
 }

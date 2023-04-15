@@ -3,35 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using eLearning.Models;
 using eLearning.Repository.Interface;
 using eLearning.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace eLearning.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly UserManager<ApplicationUser> _applicationUser;
 
     private readonly ISubjectRepository _subjectRepository;
-    public HomeController(ILogger<HomeController> logger, ISubjectRepository subjectRepository)
-    {
-        _logger = logger;
-        _subjectRepository = subjectRepository;
-    }
+	public HomeController(ILogger<HomeController> logger, ISubjectRepository subjectRepository, UserManager<ApplicationUser> applicationUser)
+	{
+		_logger = logger;
+		_subjectRepository = subjectRepository;
+		_applicationUser = applicationUser;
+	}
 
-    public async Task<IActionResult> Index()
-    {
-        var subjects = await _subjectRepository.GetAll();
-        var vm = subjects.Select(x => new SubjectVM()
-        {
-            Id = x.Id,
-            Name = x.Name,
-            Code = x.Code,
-            Description = x.Description,
-            CreatedAt = x.CreatedAt,
-        }).ToList();
-        return View(vm);
-    }
-
-    public IActionResult Privacy()
+	public IActionResult Index()
     {
         return View();
     }

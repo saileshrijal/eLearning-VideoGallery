@@ -1,0 +1,29 @@
+﻿@model List<eLearning.ViewModels.VideoVM>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Videos</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @foreach (var video in Model!)
+            {
+                <div class="col-md-6">
+                    <a asp-area="Student" asp-controller="Video" asp-action="Details" asp-route-id="@video.Id">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="~/uploads/Thumbnails/@video.ThumbnailUrl" class="card-img" />
+                            </div>
+                            <div class="card-footer">
+                                <h4 class="card-title">@video.Title</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

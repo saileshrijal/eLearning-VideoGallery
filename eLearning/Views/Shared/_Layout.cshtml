@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@using eLearning.Constant;
+@inject SignInManager<ApplicationUser> _signInManager;
+@inject UserManager<ApplicationUser> _userManager;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,31 +30,41 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Grade" asp-action="Index">Grade</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Subject" asp-action="Index">Subject</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="SubjectGrade" asp-action="Index">SubjectGrade</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Chapter" asp-action="Index">Chapter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Video" asp-action="Index">Video</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Student" asp-action="Index">Student</a>
-                        </li>
+
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            if (User.IsInRole(UserRole.Admin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Grade" asp-action="Index">Grade</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Subject" asp-action="Index">Subject</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="SubjectGrade" asp-action="Index">SubjectGrade</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Chapter" asp-action="Index">Chapter</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Video" asp-action="Index">Video</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Student" asp-action="Index">Student</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Student" asp-controller="Subject" asp-action="Index">Subject</a>
+                                </li>
+                            }
+                        }
+                       
                     </ul>
 
-                    <ul class="navbar-nav">
-                        <form asp-controller="Auth" asp-action="Logout" method="post">
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </ul>
+                    <partial name="_LoginPartial"/>
                 </div>
             </div>
             

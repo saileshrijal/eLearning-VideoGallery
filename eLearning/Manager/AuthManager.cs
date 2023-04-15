@@ -31,7 +31,7 @@ namespace eLearning.Manager.Interface
                 result.Errors.Add("Password is incorrect");
                 return result;
             }
-            await _signInManager.PasswordSignInAsync(user, password, false, false);
+            var res = await _signInManager.PasswordSignInAsync(identity, password, true, true);
             result.Success = true;
             return result;
         }

@@ -2,6 +2,7 @@
 using eLearning.Models;
 using eLearning.Service.Interface;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 
 namespace eLearning.Service
@@ -27,11 +28,26 @@ namespace eLearning.Service
                 LastName = userDto.LastName,
                 Address = userDto.Address,
                 CreatedAt = DateTime.UtcNow,
+                GradeId = userDto.GradeId,
             };
             await _userManager.CreateAsync(applicationUser, userDto.Password!);
             await _userManager.AddToRoleAsync(applicationUser, userDto.UserRole!);
             tx.Complete();
             return applicationUser;
+        }
+
+        public async Task Edit(string id, UserDto userDto)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x=>x.Id == id);
+            if(user == null)
+            {
+                throw new Exception("User not found");
+            }
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
+            user.Address = userDto.Address;
+            user.GradeId = userDto.GradeId;
+            await _userManager.UpdateAsync(user);
         }
 
         private async Task Validate(string? username, string? email)

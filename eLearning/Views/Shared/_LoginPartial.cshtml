@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> _signInManager;
+@inject UserManager<ApplicationUser> _userManager;
+
+<ul class="navbar-nav me-auto">
+    @if(_signInManager.IsSignedIn(User)){
+        <li class="nav-item d-flex justify-content-center align-items-center">
+            <a class="nav-link">
+                Hi, @_userManager.Users.FirstOrDefault(x=>x.UserName == User.Identity!.Name)!.FirstName
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <form method="post" asp-area="" asp-action="Logout" asp-controller="Auth">
+                <button type="submit" class="btn btn-primary nav-link">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

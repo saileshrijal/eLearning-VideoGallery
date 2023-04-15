@@ -33,7 +33,7 @@ namespace eLearning.Repository
         //get chapters by subject id
         public Task<List<Chapter>> GetChaptersBySubjectIdAndGradeId(int gradeId, int subjectId)
         {
-            return _context.Chapters!.Where(x => x.SubjectId == subjectId && x.GradeId == gradeId).ToListAsync()!;
+            return _context.Chapters!.Include(x=>x.Subject)!.Where(x => x.SubjectId == subjectId && x.GradeId == gradeId).ToListAsync()!;
         }
     }
 }

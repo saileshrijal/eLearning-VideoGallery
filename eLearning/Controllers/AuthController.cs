@@ -6,6 +6,9 @@ using eLearning.ViewModels;
 using eLearning.Manager.Interface;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace eLearning.Controllers;
 
@@ -14,13 +17,15 @@ public class AuthController : Controller
 {
     private readonly IAuthManager _authManager;
     private readonly INotyfService _notyfService;
-    public AuthController(IAuthManager authManager, INotyfService notyfService)
-    {
-        _authManager = authManager;
-        _notyfService = notyfService;
-    }
+    private readonly UserManager<ApplicationUser> _userManager;
+	public AuthController(IAuthManager authManager, INotyfService notyfService, UserManager<ApplicationUser> userManager)
+	{
+		_authManager = authManager;
+		_notyfService = notyfService;
+		_userManager = userManager;
+	}
 
-    public IActionResult Login(string? returnUrl)
+	public IActionResult Login(string? returnUrl)
     {
         if (User.Identity!.IsAuthenticated)
         {
@@ -43,7 +48,7 @@ public class AuthController : Controller
                 _notyfService.Success($"Welcome {vm.Username}!");
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
-                    return LocalRedirect(returnUrl);
+					return LocalRedirect(returnUrl);
                 }
                 return Redirect("/");
             }

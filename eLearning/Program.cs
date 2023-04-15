@@ -39,6 +39,7 @@ internal class Program
             builder.Services.AddScoped<ISubjectGradeRepository, SubjectGradeRepository>();
             builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
             builder.Services.AddScoped<IVideoRepository, VideoRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Services
             builder.Services.AddScoped<IGradeService, GradeService>();

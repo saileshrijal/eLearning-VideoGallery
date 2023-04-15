@@ -58,6 +58,9 @@
                     Address
                 </th>
                 <th>
+                    Grade
+                </th>
+                <th>
                     Created At
                 </th>
                 <th>
@@ -90,6 +93,9 @@
                     </td>
                      <td>
                        @item.Address
+                    </td>
+                    <td>
+                        @(item.Grade == null ? "" : item.Grade.Name)
                     </td>
                      <td>
                        @item.CreatedAt

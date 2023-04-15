@@ -1,4 +1,4 @@
-@model eLearning.ViewModels.ChapterVM
+@model eLearning.ViewModels.ApplicationUserVM
 
 @{
     ViewData["Title"] = "Chapter Details";
@@ -14,28 +14,29 @@
         </div>
         <div class="card-body">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly>
-                <label for="Name">Name</label>
-            </div>
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Name" asp-for="Unit" placeholder="Unit" readonly required>
-                <label for="Unit">Unit</label>
+                <input type="text" readonly class="form-control" id="FirstName" asp-for="FirstName" placeholder="First Name">
+                <label for="Name">First Name</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" readonly rows="8"></textarea>
-                <label for="Description">Description</label>
-            </div>
-             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Grade" asp-for="Grade.Name" placeholder="Grade" readonly>
-                <label for="Grade">Grade</label>
-            </div>
-             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Subject" asp-for="Subject.Name" placeholder="Name" readonly>
-                <label for="Subject">Subject</label>
+                <input type="text" readonly class="form-control" id="LastName" asp-for="LastName" placeholder="Last Name">
+                <label for="LastName">Last Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" asp-for="CreatedAt" id="CreatedAd" placeholder="Created At" readonly>
-                <label for="Name">Create At</label>
+                <input readonly type="text" class="form-control" id="UserName" asp-for="UserName" placeholder="UserName">
+                <label for="UserName">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input readonly type="email" class="form-control" id="Email" asp-for="Email" placeholder="Email">
+                <label for="Email">Email</label>
+            </div>
+            <div class="mb-3">
+                <label for="GradeId">Grade</label>
+                <input readonly type="text" class="form-control" id="Grade" asp-for="Grade.Name" placeholder="Grade">
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="Address" asp-for="Address" placeholder="Address" rows="8" readonly></textarea>
+                <label for="Address">Address</label>
             </div>
         </div>
     </div>
