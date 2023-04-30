@@ -14,15 +14,15 @@
         </div>
         <div class="card-body">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly required>
+            <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly disabled>
                 <label for="Name">Name</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" readonly rows="8"></textarea>
+            <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" disabled rows="8"></textarea>
                 <label for="Description">Description</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="date" class="form-control" asp-for="CreatedAt" id="CreatedAd" placeholder="Created At" readonly>
+            <input type="date" class="form-control" asp-for="CreatedAt" id="CreatedAd" placeholder="Created At" disabled>
                 <label for="Name">Create At</label>
             </div>
         </div>

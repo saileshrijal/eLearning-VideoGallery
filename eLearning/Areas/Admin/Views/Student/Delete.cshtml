@@ -16,23 +16,23 @@
         </div>
         <div class="card-body">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" readonly required>
+                <input type="text" class="form-control" id="Name" asp-for="Name" placeholder="Name" disabled>
                 <label for="Name">Name</label>
             </div>
              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Name" asp-for="Unit" placeholder="Unit" readonly required>
+                <input type="text" class="form-control" id="Name" asp-for="Unit" placeholder="Unit" disabled>
                 <label for="Unit">Unit</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" readonly rows="8"></textarea>
+                <textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" disabled rows="8"></textarea>
                 <label for="Description">Description</label>
             </div>
                <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Grade" asp-for="Grade.Name" placeholder="Grade" readonly>
+                <input type="text" class="form-control" id="Grade" asp-for="Grade!.Name" placeholder="Grade" disabled>
                 <label for="Grade">Grade</label>
             </div>
              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="Subject" asp-for="Subject.Name" placeholder="Name" readonly>
+                <input type="text" class="form-control" id="Subject" asp-for="Subject!.Name" placeholder="Name" disabled>
                 <label for="Subject">Subject</label>
             </div>
         </div>

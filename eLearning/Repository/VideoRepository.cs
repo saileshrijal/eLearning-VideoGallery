@@ -32,8 +32,11 @@ namespace eLearning.Repository
 
         public async Task<List<Video>> GetVideosByGradeIdSubjectIdChapterId(int gradeId, int subjectId, int chapterId)
         {
-            return await _context.Videos!.Where(x=>x.GradeId == gradeId & x.SubjectId == subjectId &  x.ChapterId == chapterId).ToListAsync();
+            return await _context.Videos!.Where(x => x.GradeId == gradeId & x.SubjectId == subjectId & x.ChapterId == chapterId).ToListAsync();
         }
-
+        public async Task<Video> GetVideoById(int id)
+        {
+            return await _context.Videos!.Include(x => x.Subject).Include(x => x.Grade).Include(x => x.Chapter).FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

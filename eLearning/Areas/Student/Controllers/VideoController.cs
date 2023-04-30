@@ -28,8 +28,6 @@ namespace eLearning.Areas.Student.Controllers
                 Title = x.Title,
                 GradeId = x.GradeId,
                 ChapterId = x.ChapterId,
-                Chapter = x.Chapter,
-                Subject = x.Subject,
                 CreatedAt = x.CreatedAt,
                 Description = x.Description,
                 ThumbnailUrl = x.ThumbnailUrl,
@@ -39,7 +37,12 @@ namespace eLearning.Areas.Student.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var video = await _videoRepository.GetById(id);
+            var video = await _videoRepository.GetVideoById(id);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            if (video.GradeId != currentUser!.GradeId)
+            {
+                return Content("You are not authorized");
+            }
             var vm = new VideoVM()
             {
                 Id = video.Id,
@@ -49,6 +52,9 @@ namespace eLearning.Areas.Student.Controllers
                 GradeId = video.GradeId,
                 ChapterId = video.ChapterId,
                 CreatedAt = video.CreatedAt,
+                Subject = video.Subject,
+                Grade = video.Grade,
+                Chapter = video.Chapter,
                 ThumbnailUrl = video.ThumbnailUrl,
             };
             return View(vm);
